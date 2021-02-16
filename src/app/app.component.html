@@ -26,7 +26,7 @@
             *ngIf="signIn"
             mat-raised-button
             color="primary"
-            (click)="login()"
+            (click)="logout()"
           >
             Logout
           </button>
@@ -75,9 +75,7 @@
         <textarea>{{ userInfo }}</textarea>
       </td>
       <td>
-        <span
-          ><button mat-raised-button (click)="tokenInfo()">Get</button></span
-        >
+        <span><button mat-raised-button (click)="tokenInfo()">Get</button></span>
       </td>
     </tr>
     <tr>
@@ -90,6 +88,15 @@
       <td><h2>New Tokens:</h2></td>
       <td>
         <textarea>{{ newTokens }}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td><h2>Redis Cache data:</h2></td>
+      <td>
+        <textarea>{{ redisCache }}</textarea>
+      </td>
+      <td>
+        <span><button mat-raised-button (click)="getOpenAMDetails()">Get</button></span>
       </td>
     </tr>
     <!--tr>

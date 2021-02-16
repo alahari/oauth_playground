@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
 
+
+
     private API_SERVER = "https://dv-reatta1-xl01.autozone.com:8443";
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
     public getTokenInfo(token: string) {
         let headers = new HttpHeaders();
@@ -21,15 +24,15 @@ export class ApiService {
     }
 
     public getNewAccessToken(refreshToken: string) {
-        
-   const body = new HttpParams()
+
+        const body = new HttpParams()
             // headers.set('Content-Type', 'application/json; charset=utf-8');
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .set('client_id', 'l7xx1178c83e206a471da040323a34acf43b')
             .set('grant_type', 'refresh_token')
             .set('refresh_token', refreshToken);
 
-      
+
 
 
         return this.httpClient.post(this.API_SERVER + '/openAM/sso/v2/token', body, {
@@ -38,15 +41,20 @@ export class ApiService {
         });
     }
 
-    public getOpenAMDetails(){
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-           
-          withCredentials: true, 
-          observe: 'response' as 'response'
-          };  
-        debugger;
-        return this.httpClient.post(this.API_SERVER+'/openAM/sso/v2/revoke',{},httpOptions);
+    public getOpenAMDetails() {
+        let tokenId = this.cookieService.get('AZAuthTest');
+
+        const body = new HttpParams()
+            .set('tokenId', tokenId);
+        console.log(" Cookie var " + body)
+
+        let res =  this.httpClient.get(this.API_SERVER + '/openAM/session/validate?' + 'tokenId' + "=" + tokenId);
+        return res;
+    }
+
+    public logout(user:string) {
+        let res =  this.httpClient.delete(this.API_SERVER + '/openAM/session?' + 'userId' + "=" + user);
+         return res;
     }
 
 

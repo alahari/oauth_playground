@@ -18,7 +18,9 @@ export class AppComponent {
   userInfo = "";
   expires_at: any;
   userLoggedIn = false;
-  newTokens = ""
+  newTokens = "";
+  redisCache = "";
+  user = "";
 
   constructor(private oauthService: OAuthService, private apiService: ApiService, private changeDetector: ChangeDetectorRef) {
     this.configureSingleSignon();
@@ -58,7 +60,18 @@ export class AppComponent {
   }
 
   logout() {
-    this.oauthService.logOut();
+    //this.oauthService.logOut();
+
+    this.apiService.logout(this.user).subscribe((data) => {
+      console.log("Hello");
+      
+      console.log(data);
+      //this.redisCache = JSON.stringify(data);
+    },
+      (error => {
+        console.log("Error!!!")
+      }))
+
   }
 
   get token() {
@@ -83,6 +96,8 @@ export class AppComponent {
       //this.expires_at =  data['expires_at'];
       this.expires_at = d.toLocaleTimeString();
       this.userLoggedIn = true;
+      debugger;
+      this.user =  data['claims']['username'];
 
     },
       (error => {
@@ -114,13 +129,19 @@ export class AppComponent {
   }
 
   getOpenAMDetails() {
-   
-    debugger;
-    this.apiService.getOpenAMDetails().subscribe((data: any) => {
+    this.apiService.getOpenAMDetails().subscribe((data) => {
+      console.log("Hello");
+      
       console.log(data);
-      this.newTokens = JSON.stringify(data);
+      this.redisCache = JSON.stringify(data);
     },
       (error => {
+        console.log("Error!!!")
       }))
   }
+
+  
 }
+
+
+
