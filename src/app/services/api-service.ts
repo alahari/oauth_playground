@@ -52,9 +52,11 @@ export class ApiService {
         return res;
     }
 
-    public logout(user:string) {
-        let res =  this.httpClient.delete(this.API_SERVER + '/openAM/session?' + 'userId' + "=" + user);
-         return res;
+    public logout(accessToken:string) {
+        //let res =  this.httpClient.delete(this.API_SERVER + '/openAM/sso/v2/revoke?' + 'token' + "=" + accessToken+ '&'+'token_type_hint=access_token');
+       
+        let res =  this.httpClient.delete(this.API_SERVER + '/openAM/sso/v2/revoke?' + 'token' + "=" + "45010ad2-329e-461b-9591-dba0aa5f117d"+ '&'+'token_type_hint=access_token');
+        return res;
     }
 
 

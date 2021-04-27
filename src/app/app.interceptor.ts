@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpEvent, HttpResponse, HttpRequest, HttpHandler } from '@angular/common/http';
+import { HttpInterceptor, HttpEvent, HttpResponse, HttpRequest, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
@@ -17,8 +17,9 @@ export class HeaderInterceptor implements HttpInterceptor {
     
       // console.log("interceptor: " + req.url);
       req = req.clone({
-        withCredentials: true
-      });
+        withCredentials: false
+            });
+           // debugger;
       
       return next.handle(req);
   }

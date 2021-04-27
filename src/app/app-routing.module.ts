@@ -10,7 +10,7 @@ const routes: Routes = [
   {path:'oauthtest',component:OauthTestComponent},
   {path:'redis',component:RedisApiComponent},
 
-  {path:'**',redirectTo:'home'}
+  {path:'**',component: AppComponent}
 ];
 
 @NgModule({
@@ -18,3 +18,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+

@@ -10,7 +10,7 @@ export class OauthTestComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    debugger;
+   // debugger;
   }
 
 }

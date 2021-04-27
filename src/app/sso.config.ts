@@ -4,19 +4,20 @@ import { AuthConfig } from 'angular-oauth2-oidc-codeflow';
     // Url of the Identity Provider
     issuer: 'https://dv-reatta1-xl01.autozone.com:8443',
     // issuer: 'https://demo.identityserver.io',
-    loginUrl: 'https://dv-reatta1-xl01.autozone.com:8443/auth/oauth/v2/authorize',
+   // loginUrl: 'https://dv-reatta1-xl01.autozone.com:8443/auth/oauth/v2/authorize',
+   loginUrl: 'https://dv-reatta1-xl01.autozone.com:8443/openAM/sso/authorize',
     tokenEndpoint: 'https://dv-reatta1-xl01.autozone.com:8443/openAM/sso/v2/token',
     //tokenEndpoint: 'https://dv-reatta1-xl01.autozone.com:8443/auth/oauth/v2/token',
 
 
     // URL of the SPA to redirect the user to after login
-    redirectUri: 'https://dv-shop-ui.apps.nonprod.mem.cloud.autozone.com',
+    redirectUri: 'https://dv-commercial-authozone.apps.nonprod.mem.cloud.autozone.com',
     //redirectUri: window.location.origin + '/index.html',
 
 
     // The SPA's id. The SPA is registerd with this id at the auth-server
    //  clientId: 'server.code',
-    clientId: 'l7xx1178c83e206a471da040323a34acf43b',
+    clientId: 'l7xxb41e01f18cee4b869aadfc866b383b7e',
    //clientId: 'spa',
 
 
@@ -33,7 +34,7 @@ import { AuthConfig } from 'angular-oauth2-oidc-codeflow';
     // The first four are defined by OIDC.
     // Important: Request offline_access to get a refresh token
     // The api scope is a usecase specific one
-    scope: 'az_internal_extended',
+    scope: 'az_mobile_sso',
     //scope: 'openid profile email offline_access api',
 
     //strictDiscoveryDocumentValidation: false,

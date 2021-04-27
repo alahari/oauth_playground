@@ -1,9 +1,11 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { authCodeFlowConfig } from './sso.config';
 //import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { ApiService } from './services/api-service';
 import { HttpHeaders } from '@angular/common/http';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+
 
 
 @Component({
@@ -13,9 +15,9 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'oauth2-playground';
-  accessToken = "";
-  refreshToken = "";
-  userInfo = "";
+  accessToken: any;
+  refreshToken : any;
+  userInfo : any;
   expires_at: any;
   userLoggedIn = false;
   newTokens = "";
@@ -34,6 +36,7 @@ export class AppComponent {
 
   configureSingleSignon() {
     console.log("Hello");
+    //debugger;
     this.oauthService.configure(authCodeFlowConfig);
     //this.oauthService.loadDiscoveryDocumentAndTryLogin();
     // this.oauthService.tryLogin();
@@ -62,7 +65,7 @@ export class AppComponent {
   logout() {
     //this.oauthService.logOut();
 
-    this.apiService.logout(this.user).subscribe((data) => {
+    this.apiService.logout(this.accessToken).subscribe((data) => {
       console.log("Hello");
       
       console.log(data);
@@ -70,7 +73,7 @@ export class AppComponent {
     },
       (error => {
         console.log("Error!!!")
-      }))
+      })) 
 
   }
 
@@ -96,7 +99,7 @@ export class AppComponent {
       //this.expires_at =  data['expires_at'];
       this.expires_at = d.toLocaleTimeString();
       this.userLoggedIn = true;
-      debugger;
+      //debugger;
       this.user =  data['claims']['username'];
 
     },
